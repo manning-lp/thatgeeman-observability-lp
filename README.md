@@ -13,3 +13,19 @@ Repository for liveProject: Kafka: Observability
 4. Now send messages from the `faust_app.py` script and showing up in the consumer window!
    1. Execute `faust -A faust_app send @greet "Hello Faust"` based on the [guide](https://faust-streaming.github.io/faust/playbooks/quickstart.html)
    2. This part is the creator. 
+
+## microservices
+
+Generally the issue is that the old architecture was not event driven, and built as a monolith. 
+- The triggers are manually set (running every 1 minute/based on experience), so resources badly utilized and results in unecessary costs.
+- Aggregator execution time is variable depending on the amount of data. Therefore, 1 minute reruns dont make sense.
+- Aggregated data can be stored in a different database to decouple the single source of truth design
+	- Newly added data by Aggregator into this database can trigger Model training
+- Model generated data and the model itself needs to be stored in a different database, which can then trigger a report generation.
+	- Version control the model and the corresponding report
+- When an api call for sentiment program comes, use the recently built model and respond with the prediction. 
+- The user has to manually force reruns when new data enters.
+
+In the new architecture, events dictate when the actions get triggered. The previous states are saved in separate databases (aggregates, and model stores) as failsafes and to save compute. 
+
+![](images/image.png)
