@@ -29,3 +29,9 @@ Generally the issue is that the old architecture was not event driven, and built
 In the new architecture, events dictate when the actions get triggered. The previous states are saved in separate databases (aggregates, and model stores) as failsafes and to save compute. 
 
 ![](images/image.png)
+
+
+## consumer and produecer
+Launch the containers. 
+- Then run the producer script after changing to src folder: `faust -A producer worker -l info`
+- To see if the consumer consumed the topics: `faust -A consumer worker -l info`
