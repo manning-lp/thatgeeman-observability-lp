@@ -35,3 +35,7 @@ In the new architecture, events dictate when the actions get triggered. The prev
 Launch the containers. 
 - Then run the producer script after changing to src folder: `faust -A producer worker -l info`
 - To see if the consumer consumed the topics: `faust -A consumer worker -l info`
+
+Right now the consumer cannot be launched at the same time as producer as they use the same port. 
+This is because The Faust worker will also expose a web server on every instance, that by default runs on port 6066.
+Troubleshooting information can be found [here](https://stackoverflow.com/questions/60899445/how-to-connect-kafka-topic-with-web-endpoint-using-faust-python-package).
