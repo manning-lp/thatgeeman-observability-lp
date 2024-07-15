@@ -18,7 +18,7 @@ STOCK_START = {
 
 prev = STOCK_START.copy()
 
-app = faust.App("stock_producer", broker="kafka://localhost:9092")
+app = faust.App("stock_producer", broker="kafka://localhost:9092", web_port=6067)
 stock_producer_topic = app.topic("stock_updates")
 stock_changed_by10_topic = app.topic("stock_chg10")
 logger = logging.getLogger("stock_producer")
